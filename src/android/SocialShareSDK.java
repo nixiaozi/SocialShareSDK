@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 /**
  * This class echoes a string called from JavaScript.
  */
@@ -40,7 +42,7 @@ public class SocialShareSDK extends CordovaPlugin {
             }
             String TheShareTitle=Urlsanitizer.getValue("ShareTitle");
             if(!TextUtils.isEmpty(TheShareTitle)){
-                //æ²¡æœ‰åŠæ³•é€šè¿‡è§£æQueryè·å¾—æ­£ç¡®çš„ä¸­æ–‡ï¼Œåªæœ‰ç›´æ¥æˆªå–å­—ç¬¦ä¸²äº†ã€‚
+                //Ã»ÓĞ°ì·¨Í¨¹ı½âÎöQuery»ñµÃÕıÈ·µÄÖĞÎÄ£¬Ö»ÓĞÖ±½Ó½ØÈ¡×Ö·û´®ÁË¡£
                 int BeginIndex=url.indexOf("ShareTitle");
                 int EndIndex=url.indexOf("&",BeginIndex+1)==-1?url.length()-1:url.indexOf("&",BeginIndex+1);
                 ShareTitle=url.substring(BeginIndex+11,url.indexOf("",EndIndex) );
@@ -54,31 +56,31 @@ public class SocialShareSDK extends CordovaPlugin {
 
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
-        //å…³é—­ssoæˆæƒ
+        //¹Ø±ÕssoÊÚÈ¨
         oks.disableSSOWhenAuthorize();
 
-        // titleæ ‡é¢˜ï¼Œå°è±¡ç¬”è®°ã€é‚®ç®±ã€ä¿¡æ¯ã€å¾®ä¿¡ã€äººäººç½‘å’ŒQQç©ºé—´ç­‰ä½¿ç”¨
+        // title±êÌâ£¬Ó¡Ïó±Ê¼Ç¡¢ÓÊÏä¡¢ĞÅÏ¢¡¢Î¢ĞÅ¡¢ÈËÈËÍøºÍQQ¿Õ¼äµÈÊ¹ÓÃ
         oks.setTitle(ShareTitle);
-        // titleUrlæ˜¯æ ‡é¢˜çš„ç½‘ç»œé“¾æ¥ï¼ŒQQå’ŒQQç©ºé—´ç­‰ä½¿ç”¨
+        // titleUrlÊÇ±êÌâµÄÍøÂçÁ´½Ó£¬QQºÍQQ¿Õ¼äµÈÊ¹ÓÃ
         oks.setTitleUrl(ShareUrl);
-        // textæ˜¯åˆ†äº«æ–‡æœ¬ï¼Œæ‰€æœ‰å¹³å°éƒ½éœ€è¦è¿™ä¸ªå­—æ®µ
+        // textÊÇ·ÖÏíÎÄ±¾£¬ËùÓĞÆ½Ì¨¶¼ĞèÒªÕâ¸ö×Ö¶Î
         oks.setText(ShareTitle);
-        // imagePathæ˜¯å›¾ç‰‡çš„æœ¬åœ°è·¯å¾„ï¼ŒLinked-Inä»¥å¤–çš„å¹³å°éƒ½æ”¯æŒæ­¤å‚æ•°
-        //oks.setImagePath(ShareImg);//ç¡®ä¿SDcardä¸‹é¢å­˜åœ¨æ­¤å¼ å›¾ç‰‡
+        // imagePathÊÇÍ¼Æ¬µÄ±¾µØÂ·¾¶£¬Linked-InÒÔÍâµÄÆ½Ì¨¶¼Ö§³Ö´Ë²ÎÊı
+        //oks.setImagePath(ShareImg);//È·±£SDcardÏÂÃæ´æÔÚ´ËÕÅÍ¼Æ¬
         oks.setImageUrl(ShareImg);
-        // urlä»…åœ¨å¾®ä¿¡ï¼ˆåŒ…æ‹¬å¥½å‹å’Œæœ‹å‹åœˆï¼‰ä¸­ä½¿ç”¨
+        // url½öÔÚÎ¢ĞÅ£¨°üÀ¨ºÃÓÑºÍÅóÓÑÈ¦£©ÖĞÊ¹ÓÃ
         oks.setUrl(ShareUrl);
-        // commentæ˜¯æˆ‘å¯¹è¿™æ¡åˆ†äº«çš„è¯„è®ºï¼Œä»…åœ¨äººäººç½‘å’ŒQQç©ºé—´ä½¿ç”¨
-        //oks.setComment("æˆ‘æ˜¯æµ‹è¯•è¯„è®ºæ–‡æœ¬");
-        // siteæ˜¯åˆ†äº«æ­¤å†…å®¹çš„ç½‘ç«™åç§°ï¼Œä»…åœ¨QQç©ºé—´ä½¿ç”¨
+        // commentÊÇÎÒ¶ÔÕâÌõ·ÖÏíµÄÆÀÂÛ£¬½öÔÚÈËÈËÍøºÍQQ¿Õ¼äÊ¹ÓÃ
+        //oks.setComment("ÎÒÊÇ²âÊÔÆÀÂÛÎÄ±¾");
+        // siteÊÇ·ÖÏí´ËÄÚÈİµÄÍøÕ¾Ãû³Æ£¬½öÔÚQQ¿Õ¼äÊ¹ÓÃ
         oks.setSite(ShareTitle);
-        // siteUrlæ˜¯åˆ†äº«æ­¤å†…å®¹çš„ç½‘ç«™åœ°å€ï¼Œä»…åœ¨QQç©ºé—´ä½¿ç”¨
+        // siteUrlÊÇ·ÖÏí´ËÄÚÈİµÄÍøÕ¾µØÖ·£¬½öÔÚQQ¿Õ¼äÊ¹ÓÃ
         oks.setSiteUrl(ShareUrl);
 
-        //è‡ªå®šä¹‰å¾®ä¿¡å›è°ƒ
+        //×Ô¶¨ÒåÎ¢ĞÅ»Øµ÷
         //oks.setShareContentCustomizeCallback(new WeChartShareCallBack());
 
-        // å¯åŠ¨åˆ†äº«GUI
+        // Æô¶¯·ÖÏíGUI
         oks.show(context);
     }
 
